@@ -1,5 +1,6 @@
 #!/bin/bash
 
-cp hiera.yaml hieradata /etc/puppet
+apt-get install puppet ruby-hiera-puppet
+cp -r hiera.yaml hieradata /etc/puppet
 puppet apply main.pp
 ./kiosk.py &
