@@ -41,4 +41,7 @@ class Browser():
         self.updateWebView()
         self.web.showFullScreen()
 
+        # Hide the cursor
+        self.app.setOverrideCursor(PySide.QtCore.Qt.BlankCursor)
+
         sys.exit(self.app.exec_())
