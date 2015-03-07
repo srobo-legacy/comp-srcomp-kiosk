@@ -11,10 +11,14 @@ parser = argparse.ArgumentParser(description='srcomp kiosk system')
 parser.add_argument('--config', dest='config', help='Config file location '
         '(default: /etc/srcomp-kiosk/config.yaml)',
         default="/etc/srcomp-kiosk/config.yaml")
+parser.add_argument('--browser', dest='browser', help='Browser to use '
+        '(Chromium recommended, chromium default)',
+        default="chromium")
 
 args = parser.parse_args()
 
 configPath = args.config
+browser = args.browser
 
 # Disable screensaver
 
@@ -34,7 +38,8 @@ while True:
             if url != oldUrl:
                 if proc != None:
                     proc.kill()
-                proc = subprocess.Popen(["chromium-browser", "--kiosk", url])
+                proc = subprocess.Popen([browser, "--kiosk", "--incognito",
+                    "--noerrdialogs", url])
                 oldUrl = url
-    except IOError:
-        print("Could not open file.")
+    except IOError as e:
+        print(e)
