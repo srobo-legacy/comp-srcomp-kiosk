@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
 import argparse
-import browser
 import subprocess
+import time
+import yaml
 
 # Parse arguments to get the config file location
 
@@ -20,7 +21,20 @@ configPath = args.config
 subprocess.call(["xset", "-dpms"])
 subprocess.call(["xset", "s", "off"])
 subprocess.call(["xset", "s", "noblank"])
+subprocess.Popen(["unclutter"])
 
-# Start the web browser module
-web = browser.Browser(configPath)
-web.go()
+oldUrl = None
+proc = None
+
+while True:
+    time.sleep(1)
+    try:
+        with open(configPath) as f:
+            url = yaml.load(f)['url']
+            if url != oldUrl:
+                if proc != None:
+                    proc.kill()
+                proc = subprocess.Popen(["chromium-browser", "--kiosk", url])
+                oldUrl = url
+    except IOError:
+        print("Could not open file.")
