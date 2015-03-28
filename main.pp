@@ -6,6 +6,10 @@ package { "unclutter":
   ensure => installed,
 }
 
+package { "python3-yaml":
+  ensure => installed,
+}
+
 file { "/etc/srcomp-kiosk":
   ensure => directory,
 }
