@@ -10,6 +10,10 @@ package { "python3-yaml":
   ensure => installed,
 }
 
+package { "x11-xserver-utils":
+  ensure => installed,
+}
+
 file { "/etc/srcomp-kiosk":
   ensure => directory,
 }
