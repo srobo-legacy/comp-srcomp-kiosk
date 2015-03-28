@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=SRcomp Kiosk
+Path=/home/pi/srcomp-kiosk
+Exec=/home/pi/srcomp-kiosk/kiosk.py
+Type=Application
