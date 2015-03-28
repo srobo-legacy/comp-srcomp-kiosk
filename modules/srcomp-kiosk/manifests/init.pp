@@ -39,6 +39,12 @@ class srcomp-kiosk {
     owner => "pi",
     content => template("srcomp-kiosk/kiosk.desktop.erb"),
   }
+
+  file { "/usr/local/bin/srcomp-kiosk":
+    ensure => file,
+    content => template("srcomp-kiosk/srcomp-kiosk.erb"),
+    mode => 0755,
+  }
   
   file { "/opt/srcomp-kiosk":
     ensure => directory,
