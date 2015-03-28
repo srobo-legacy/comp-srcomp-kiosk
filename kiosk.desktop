@@ -1,5 +1,5 @@
 [Desktop Entry]
 Name=SRcomp Kiosk
 Path=/home/pi/srcomp-kiosk
-Exec=/home/pi/srcomp-kiosk/kiosk.py
+Exec=/bin/bash -c 'cd /home/pi/srcomp-kiosk; /home/pi/srcomp-kiosk/kiosk.py'
 Type=Application
