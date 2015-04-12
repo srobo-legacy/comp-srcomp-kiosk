@@ -2,7 +2,7 @@ class srcomp-kiosk {
 
   $opt_kioskdir = '/opt/srcomp-kiosk'
   $etc_kioskdir = '/etc/srcomp-kiosk'
-  $kiosk_log    = '/var/log/srcomp-kiosk.log'
+  $kiosk_logdir = '/var/log/srcomp-kiosk'
   $user         = 'pi'
   $user_home    = "/home/${user}"
   $user_config  = "${user_home}/.config"
@@ -70,18 +70,26 @@ class srcomp-kiosk {
     require => File[$autostart_dir],
   }
 
-  file { $kiosk_log:
+  file { $kiosk_logdir:
+    ensure  => directory,
+  }
+
+  $service_name = 'srcomp-kiosk'
+  $service_pid_file = "/var/run/${service_name}.pid"
+  file { $service_pid_file:
     ensure  => file,
   }
 
   $kiosk_runner = '/usr/local/bin/srcomp-kiosk'
   $kiosk_script = "${opt_kioskdir}/kiosk.py"
+  $start_command = $kiosk_script
+  $log_dir = $kiosk_logdir
   file { $kiosk_runner:
-    ensure  => link,
-    target  => $kiosk_script,
+    ensure  => file,
+    content => template('srcomp-kiosk/service.erb'),
     mode    => '0755',
     require => [File[$kiosk_script],
-                File[$kiosk_log],
+                File[$kiosk_logdir],
                 File["${etc_kioskdir}/config.yaml"],
                 File["${opt_kioskdir}/firefox-profile"]],
   }
@@ -107,11 +115,11 @@ class srcomp-kiosk {
 
   exec { 'Start kiosk':
     environment => ['DISPLAY=:0.0'],
-    command     => "${kiosk_runner} &",
+    command     => "${kiosk_runner} start",
     cwd         => $user_home,
     user        => $user,
     group       => $user,
-    unless      => "/bin/ps aux | /bin/grep -v grep | /bin/grep 'python3.*srcomp-kiosk'",
+    unless      => "${kiosk_runner} status",
     require     => File[$kiosk_runner],
   }
 }

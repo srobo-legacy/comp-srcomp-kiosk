@@ -4,6 +4,7 @@ import argparse
 import logging
 import os
 import subprocess
+import sys
 import time
 import yaml
 
@@ -12,8 +13,7 @@ DEFAULT_BROWSER = 'firefox'
 DEFAULT_CONFIG  = '/etc/srcomp-kiosk/config.yaml'
 DEFAULT_PROFILE = '/opt/srcomp-kiosk/firefox-profile'
 
-LOG_FILE = '/var/log/srcomp-kiosk.log'
-logging.basicConfig(filename=LOG_FILE,
+logging.basicConfig(stream=sys.stdout,
                     level=logging.INFO,
                     format='%(asctime)s (pid:%(process)d) %(levelname)s:%(message)s'
                    )
