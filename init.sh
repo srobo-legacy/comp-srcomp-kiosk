@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mydir=`basename $0`
+mydir=`dirname $0`
 cd $mydir
 mydir=$PWD
 
