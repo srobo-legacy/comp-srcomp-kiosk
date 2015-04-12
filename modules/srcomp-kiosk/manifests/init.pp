@@ -106,7 +106,7 @@ class srcomp-kiosk {
   }
 
   exec { 'Start kiosk':
-    environment => ["DISPLAY=:0.0"],
+    environment => ['DISPLAY=:0.0'],
     command     => "${kiosk_runner} &",
     user        => $user,
     group       => $user,
