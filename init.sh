@@ -8,9 +8,9 @@ puppet_dir='/etc/puppet'
 
 if [[ -d $puppet_dir ]]
 then
-    echo "Puppet dir ($puppet_dir) already exists, remove it?"
+    echo -n "Puppet dir ($puppet_dir) already exists, remove it? [y/N]: "
     read do_remove
-    if [[ $do_remove -eq "y" ]]
+    if [[ $do_remove = "y" ]]
     then
         rm -rf $puppet_dir
     else
