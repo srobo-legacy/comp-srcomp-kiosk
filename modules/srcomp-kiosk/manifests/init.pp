@@ -107,7 +107,7 @@ class srcomp-kiosk {
 
   exec { 'Start kiosk':
     environment => ["DISPLAY=:0.0"],
-    command     => $kiosk_runner,
+    command     => "${kiosk_runner} &",
     unless      => "/bin/ps aux | /bin/grep -v grep | /bin/grep 'python3 ${kiosk_script}'",
     require     => File[$kiosk_runner],
   }
