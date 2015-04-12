@@ -2,6 +2,7 @@ class srcomp-kiosk {
 
   $opt_kioskdir = '/opt/srcomp-kiosk'
   $etc_kioskdir = '/etc/srcomp-kiosk'
+  $kiosk_log    = '/var/log/srcomp-kiosk.log'
   $user         = 'pi'
   $user_home    = "/home/${user}"
   $user_config  = "${user_home}/.config"
@@ -69,6 +70,10 @@ class srcomp-kiosk {
     require => File[$autostart_dir],
   }
 
+  file { $kiosk_log:
+    ensure  => file,
+  }
+
   $kiosk_runner = '/usr/local/bin/srcomp-kiosk'
   $kiosk_script = "${opt_kioskdir}/kiosk.py"
   file { $kiosk_runner:
@@ -76,6 +81,7 @@ class srcomp-kiosk {
     target  => $kiosk_script,
     mode    => '0755',
     require => [File[$kiosk_script],
+                File[$kiosk_log],
                 File["${etc_kioskdir}/config.yaml"],
                 File["${opt_kioskdir}/firefox-profile"]],
   }

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import logging
 import subprocess
 import time
 import yaml
@@ -9,6 +10,13 @@ import yaml
 DEFAULT_BROWSER = 'firefox'
 DEFAULT_CONFIG  = '/etc/srcomp-kiosk/config.yaml'
 DEFAULT_PROFILE = '/opt/srcomp-kiosk/firefox-profile'
+
+LOG_FILE = '/var/log/srcomp-kiosk.log'
+logging.basicConfig(filename=LOG_FILE,
+                    level=logging.INFO,
+                    format='%(asctime)s (pid:%(process)d) %(levelname)s:%(message)s'
+                   )
+logging.info("Starting kiosk")
 
 parser = argparse.ArgumentParser(description='srcomp kiosk system')
 parser.add_argument('--config', dest='config', help='Config file location '
@@ -45,4 +53,5 @@ while True:
                 subprocess.Popen([browser, "--profile", profilePath, url])
                 oldUrl = url
     except IOError as e:
+        logging.exception("Failed to set url.")
         print(e)
