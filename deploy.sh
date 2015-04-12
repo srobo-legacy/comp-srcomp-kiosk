@@ -6,4 +6,10 @@ then
     exit 1
 fi
 
+if [[ $UID != 0 ]]
+then
+    echo "Must be run as root!"
+    exec sudo $0
+fi
+
 puppet apply /etc/puppet/manifests/main.pp

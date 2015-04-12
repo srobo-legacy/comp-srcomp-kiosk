@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [[ $UID != 0 ]]
+then
+    echo "Must be run as root!"
+    exec sudo $0
+fi
+
 mydir=`dirname $0`
 cd $mydir
 mydir=$PWD
