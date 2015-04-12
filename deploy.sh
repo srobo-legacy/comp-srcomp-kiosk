@@ -2,7 +2,7 @@
 
 if [[ ! -d "/etc/puppet" ]]
 then
-    echo "Puppet dir not present cannot deploy. Did you run init yet?"
+    echo "Puppet dir not present; cannot deploy. Did you run init yet?"
     exit 1
 fi
 
