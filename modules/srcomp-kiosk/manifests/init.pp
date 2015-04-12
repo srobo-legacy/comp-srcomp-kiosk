@@ -98,4 +98,11 @@ class srcomp-kiosk {
     mode    => '0755',
     require => File[$opt_kioskdir],
   }
+
+  exec { 'Start kiosk':
+    environment => ["DISPLAY=:0.0"],
+    command     => $kiosk_runner,
+    unless      => 'ps aux | grep srcomp-kiosk',
+    require     => File[$kiosk_runner],
+  }
 }
