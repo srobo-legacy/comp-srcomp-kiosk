@@ -1,7 +1,10 @@
 class srcomp-kiosk {
 
-  $kioskdir = '/opt/srcomp-kiosk'
+  $opt_kioskdir = '/opt/srcomp-kiosk'
+  $etc_kioskdir = '/etc/srcomp-kiosk'
   $user         = 'pi'
+  $user_config  = "/home/${user}/.config"
+  $url          = hiera('url')
 
   package { ["iceweasel"
             ,"unclutter"
@@ -16,26 +19,30 @@ class srcomp-kiosk {
     group   => $user,
   }
 
-  file { '/etc/srcomp-kiosk':
+  file { $etc_kioskdir:
     ensure => directory,
   }
 
-  $url = hiera('url')
-
-  file { '/etc/srcomp-kiosk/config.yaml':
+  file { "${etc_kioskdir}/config.yaml":
     ensure  => file,
     content => "url: '${url}'",
+    require => File[$etc_kioskdir],
   }
 
-  file { '/home/pi/.config/autostart':
+  file { $user_config:
     ensure  => directory,
-    owner   => 'pi',
   }
 
-  file { '/home/pi/.config/autostart/kiosk.desktop':
+  $autostart_dir = "${user_config}/autostart"
+  file { $autostart_dir:
+    ensure  => directory,
+    require => File[$user_config],
+  }
+
+  file { "${autostart_dir}/kiosk.desktop":
     ensure  => file,
-    owner   => 'pi',
     content => template('srcomp-kiosk/kiosk.desktop.erb'),
+    require => File[$autostart_dir],
   }
 
   file { '/usr/local/bin/srcomp-kiosk':
@@ -44,23 +51,22 @@ class srcomp-kiosk {
     mode    => '0755',
   }
 
-  file { '/opt/srcomp-kiosk':
+  file { $opt_kioskdir:
     ensure  => directory,
-    owner   => 'pi',
   }
 
-  file { '/opt/srcomp-kiosk/kiosk.py':
+  file { "${opt_kioskdir}/kiosk.py":
     ensure  => file,
     source  => 'puppet:///modules/srcomp-kiosk/kiosk.py',
     mode    => '0755',
-    owner   => 'pi',
+    require => File[$opt_kioskdir],
   }
 
-  file { '/opt/srcomp-kiosk/firefox-profile':
+  file { "${opt_kioskdir}/firefox-profile":
     ensure  => directory,
     recurse => true,
     source  => 'puppet:///modules/srcomp-kiosk/firefox-profile',
     mode    => '0755',
-    owner   => 'pi',
+    require => File[$opt_kioskdir],
   }
 }
