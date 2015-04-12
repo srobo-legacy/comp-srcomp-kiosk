@@ -12,13 +12,13 @@ then
     read do_remove
     if [[ $do_remove -eq "y" ]]
     then
-        rm -rf /etc/puppet
+        rm -rf $puppet_dir
     else
         exit 1
     fi
 fi
 
-ln -s $mydir /etc/puppet
+ln -s $mydir $puppet_dir
 
 apt-get install puppet ruby-hiera-puppet
 
