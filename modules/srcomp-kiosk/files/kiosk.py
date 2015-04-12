@@ -17,7 +17,7 @@ parser.add_argument('--config', dest='config', help='Config file location '
 parser.add_argument('--browser', dest='browser', help='Browser to use '
         '(default: {0}, must be firefox based)'.format(DEFAULT_BROWSER),
         default=DEFAULT_BROWSER)
-parser.add_argument('--profile', dest='browser', help='Profile to use '
+parser.add_argument('--profile', dest='profile', help='Profile to use '
         "(default: {0}, passed to the browser after '--profile')".format(DEFAULT_PROFILE),
         default=DEFAULT_PROFILE)
 
