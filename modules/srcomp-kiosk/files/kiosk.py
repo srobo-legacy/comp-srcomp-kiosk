@@ -37,10 +37,28 @@ profilePath = args.profile
 
 # Disable screensaver
 
-subprocess.call(["xset", "-dpms"])
-subprocess.call(["xset", "s", "off"])
-subprocess.call(["xset", "s", "noblank"])
-subprocess.Popen(["unclutter"])
+xset_commands = [
+        ["xset", "-dpms"],
+        ["xset", "s", "off"],
+        ["xset", "s", "noblank"],
+    ]
+
+logging.info("Disabling the screensaver")
+for command in xset_commands:
+    cmd = " ".join(command)
+    logging.debug("About to run '%s'.", cmd)
+    try:
+        subprocess.check_call(command)
+    except Exception as e:
+        logging.exception("Failed to run '$s'.", cmd)
+        print(e)
+
+logging.info("Hiding the mouse")
+try:
+    unclutter = subprocess.Popen(["unclutter"])
+except Exception as e:
+    logging.exception("Unclutter failed")
+    raise
 
 oldUrl = None
 
@@ -54,4 +72,6 @@ while True:
     except IOError as e:
         logging.exception("Failed to set url.")
         print(e)
+
     time.sleep(1)
+    assert unclutter.returncode is None, "Unclutter has closed!"
