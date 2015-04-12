@@ -2,19 +2,11 @@ class srcomp-kiosk {
 
   $kioskdir = '/opt/srcomp-kiosk'
 
-  package { 'iceweasel':
-    ensure => installed,
-  }
-
-  package { 'unclutter':
-    ensure => installed,
-  }
-
-  package { 'python3-yaml':
-    ensure => installed,
-  }
-
-  package { 'x11-xserver-utils':
+  package { ["iceweasel"
+            ,"unclutter"
+            ,"python3-yaml"
+            ,"x11-xserver-utils"
+            ]:
     ensure => installed,
   }
 
