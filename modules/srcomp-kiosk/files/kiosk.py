@@ -45,7 +45,6 @@ subprocess.Popen(["unclutter"])
 oldUrl = None
 
 while True:
-    time.sleep(1)
     try:
         with open(configPath) as f:
             url = yaml.load(f)['url']
@@ -55,3 +54,4 @@ while True:
     except IOError as e:
         logging.exception("Failed to set url.")
         print(e)
+    time.sleep(1)
