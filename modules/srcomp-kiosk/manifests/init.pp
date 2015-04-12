@@ -111,7 +111,7 @@ class srcomp-kiosk {
     cwd         => $user_home,
     user        => $user,
     group       => $user,
-    unless      => "/bin/ps aux | /bin/grep -v grep | /bin/grep 'python3 ${kiosk_script}'",
+    unless      => "/bin/ps aux | /bin/grep -v grep | /bin/grep 'python3.*srcomp-kiosk'",
     require     => File[$kiosk_runner],
   }
 }
