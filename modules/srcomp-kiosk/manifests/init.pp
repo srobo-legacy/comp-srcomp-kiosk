@@ -1,6 +1,7 @@
 class srcomp-kiosk {
 
   $kioskdir = '/opt/srcomp-kiosk'
+  $user         = 'pi'
 
   package { ["iceweasel"
             ,"unclutter"
@@ -8,6 +9,11 @@ class srcomp-kiosk {
             ,"x11-xserver-utils"
             ]:
     ensure => installed,
+  }
+
+  File {
+    owner   => $user,
+    group   => $user,
   }
 
   file { '/etc/srcomp-kiosk':
