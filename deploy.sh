@@ -1,6 +1,9 @@
 #!/bin/bash
 
-apt-get install puppet ruby-hiera-puppet
-rm -rf /etc/puppet/hieradata
-cp -r hiera.yaml hieradata /etc/puppet
-puppet apply manifests/main.pp --modulepath=modules
+if [[ ! -d "/etc/puppet" ]]
+then
+    echo "Puppet dir not present cannot deploy. Did you run init yet?"
+    exit 1
+fi
+
+puppet apply /etc/puppet/manifests/main.pp
