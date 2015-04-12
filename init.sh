@@ -4,10 +4,18 @@ mydir=`dirname $0`
 cd $mydir
 mydir=$PWD
 
-if [[ -d "/etc/puppet" ]]
+puppet_dir='/etc/puppet'
+
+if [[ -d $puppet_dir ]]
 then
-    echo "Puppet dir already exists, cannot install."
-    exit 1
+    echo "Puppet dir ($puppet_dir) already exists, remove it?"
+    read do_remove
+    if [[ $do_remove -eq "y" ]]
+    then
+        rm -rf /etc/puppet
+    else
+        exit 1
+    fi
 fi
 
 ln -s $mydir /etc/puppet
