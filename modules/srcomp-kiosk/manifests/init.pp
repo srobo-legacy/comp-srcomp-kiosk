@@ -69,17 +69,20 @@ class srcomp-kiosk {
     require => File[$autostart_dir],
   }
 
-  file { '/usr/local/bin/srcomp-kiosk':
-    ensure  => file,
-    content => template('srcomp-kiosk/srcomp-kiosk.erb'),
+  $kiosk_runner = '/usr/local/bin/srcomp-kiosk'
+  $kiosk_script = "${opt_kioskdir}/kiosk.py"
+  file { $kiosk_runner:
+    ensure  => link,
+    target  => $kiosk_script,
     mode    => '0755',
+    require => [File[$kiosk_script],File["${opt_kioskdir}/firefox-profile"]],
   }
 
   file { $opt_kioskdir:
     ensure  => directory,
   }
 
-  file { "${opt_kioskdir}/kiosk.py":
+  file { $kiosk_script:
     ensure  => file,
     source  => 'puppet:///modules/srcomp-kiosk/kiosk.py',
     mode    => '0755',
