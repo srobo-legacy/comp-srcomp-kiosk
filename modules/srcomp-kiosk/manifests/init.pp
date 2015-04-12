@@ -102,7 +102,7 @@ class srcomp-kiosk {
   exec { 'Start kiosk':
     environment => ["DISPLAY=:0.0"],
     command     => $kiosk_runner,
-    unless      => 'ps aux | grep srcomp-kiosk',
+    unless      => '/bin/ps aux | /bin/grep srcomp-kiosk',
     require     => File[$kiosk_runner],
   }
 }
