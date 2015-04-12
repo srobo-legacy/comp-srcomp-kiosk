@@ -6,14 +6,16 @@ import time
 import yaml
 
 # Parse arguments to get the config file location
+DEFAULT_BROWSER = 'firefox'
+DEFAULT_CONFIG  = '/etc/srcomp-kiosk/config.yaml'
 
 parser = argparse.ArgumentParser(description='srcomp kiosk system')
 parser.add_argument('--config', dest='config', help='Config file location '
-        '(default: /etc/srcomp-kiosk/config.yaml)',
-        default="/etc/srcomp-kiosk/config.yaml")
+        '(default: {0})'.format(DEFAULT_CONFIG),
+        default=DEFAULT_CONFIG)
 parser.add_argument('--browser', dest='browser', help='Browser to use '
-        '(Firefox recommended, firefox default)',
-        default="firefox")
+        '(default: {0}, must be firefox based)'.format(DEFAULT_BROWSER),
+        default=DEFAULT_BROWSER)
 
 args = parser.parse_args()
 
