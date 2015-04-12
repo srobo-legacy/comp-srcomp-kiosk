@@ -75,7 +75,9 @@ class srcomp-kiosk {
     ensure  => link,
     target  => $kiosk_script,
     mode    => '0755',
-    require => [File[$kiosk_script],File["${opt_kioskdir}/firefox-profile"]],
+    require => [File[$kiosk_script],
+                File["${etc_kioskdir}/config.yaml"],
+                File["${opt_kioskdir}/firefox-profile"]],
   }
 
   file { $opt_kioskdir:
