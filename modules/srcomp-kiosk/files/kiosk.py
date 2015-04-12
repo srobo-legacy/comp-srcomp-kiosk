@@ -2,6 +2,7 @@
 
 import argparse
 import logging
+import os
 import subprocess
 import time
 import yaml
@@ -16,7 +17,8 @@ logging.basicConfig(filename=LOG_FILE,
                     level=logging.INFO,
                     format='%(asctime)s (pid:%(process)d) %(levelname)s:%(message)s'
                    )
-logging.info("Starting kiosk")
+logging.info("Starting kiosk on '%s' from '%s'.",
+             os.environ.get('DISPLAY'), os.getcwd())
 
 parser = argparse.ArgumentParser(description='srcomp kiosk system')
 parser.add_argument('--config', dest='config', help='Config file location '
