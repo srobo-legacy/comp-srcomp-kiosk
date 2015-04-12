@@ -3,7 +3,9 @@ class srcomp-kiosk {
   $opt_kioskdir = '/opt/srcomp-kiosk'
   $etc_kioskdir = '/etc/srcomp-kiosk'
   $user         = 'pi'
-  $user_config  = "/home/${user}/.config"
+  $user_home    = "/home/${user}"
+  $user_config  = "${user_home}/.config"
+  $user_ssh     = "${user_home}/.ssh"
   $url          = hiera('url')
 
   package { ["iceweasel"
@@ -19,6 +21,7 @@ class srcomp-kiosk {
     group   => $user,
   }
 
+  # Config
   file { $etc_kioskdir:
     ensure => directory,
   }
@@ -29,8 +32,29 @@ class srcomp-kiosk {
     require => File[$etc_kioskdir],
   }
 
+  # User config
+  file { $user_home:
+    ensure  => directory,
+  }
+
+  # Easy logins
+  file { $user_ssh:
+    ensure  => directory,
+    mode    => '0700',
+  }
+
+  file { "${user_ssh}/authorized_keys":
+    ensure  => file,
+    mode    => '0600',
+    # TODO: Put in hiera?
+    source  => 'puppet:///modules/srcomp-kiosk/pi-authorized_keys',
+    require => File[$user_ssh],
+  }
+
+  # Autostart
   file { $user_config:
     ensure  => directory,
+    require => File[$user_home],
   }
 
   $autostart_dir = "${user_config}/autostart"
