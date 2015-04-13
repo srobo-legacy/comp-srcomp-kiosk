@@ -38,6 +38,12 @@ class srcomp-kiosk {
     ensure  => directory,
   }
 
+  file { "${user_home}/show-procs":
+    ensure  => file,
+    mode    => '0755',
+    content => 'ps aux | grep --color -E "(unclutter|icew|python)"',
+  }
+
   # Easy logins
   file { $user_ssh:
     ensure  => directory,
