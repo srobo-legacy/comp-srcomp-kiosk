@@ -64,6 +64,7 @@ class srcomp-kiosk {
     require => File[$user_config],
   }
 
+  $kiosk_runner = '/usr/local/bin/srcomp-kiosk'
   file { "${autostart_dir}/kiosk.desktop":
     ensure  => file,
     content => template('srcomp-kiosk/kiosk.desktop.erb'),
@@ -80,7 +81,6 @@ class srcomp-kiosk {
     ensure  => file,
   }
 
-  $kiosk_runner = '/usr/local/bin/srcomp-kiosk'
   $kiosk_script = "${opt_kioskdir}/kiosk.py"
   $start_command = $kiosk_script
   $log_dir = $kiosk_logdir
