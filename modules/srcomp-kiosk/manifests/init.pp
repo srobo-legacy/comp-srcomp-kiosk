@@ -76,7 +76,7 @@ class srcomp-kiosk {
   }
 
   $service_name = 'srcomp-kiosk'
-  $service_pid_file = "/var/run/${service_name}.pid"
+  $service_pid_file = "/tmp/${service_name}.pid"
   file { $service_pid_file:
     ensure  => file,
   }
