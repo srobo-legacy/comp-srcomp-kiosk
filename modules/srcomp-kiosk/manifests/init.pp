@@ -114,12 +114,9 @@ class srcomp-kiosk {
   }
 
   exec { 'Start kiosk':
-    environment => ['DISPLAY=:0.0'],
-    command     => "${kiosk_runner} start",
-    cwd         => $user_home,
-    user        => $user,
-    group       => $user,
-    unless      => "${kiosk_runner} status",
-    require     => File[$kiosk_runner],
+    command => "/bin/su - -c 'DISPLAY=:0.0 ${kiosk_runner} start' ${user}",
+    cwd     => $user_home,
+    unless  => "${kiosk_runner} status",
+    require => File[$kiosk_runner],
   }
 }
