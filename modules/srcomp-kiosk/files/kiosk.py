@@ -3,6 +3,7 @@
 import argparse
 import logging
 import os
+import signal
 import subprocess
 import sys
 import time
@@ -33,9 +34,49 @@ parser.add_argument('--profile', dest='profile', help='Profile to use '
 
 args = parser.parse_args()
 
-configPath = args.config
-browser = args.browser
-profilePath = args.profile
+_processes = []
+def Popen(*args, **kwargs):
+    proc = subprocess.Popen(*args, **kwargs)
+    _processes.append(proc)
+    return proc
+
+class Kiosk(object):
+    def __init__(self, args, loop_end):
+        self.configPath = args.config
+        self.browser = args.browser
+        self.profilePath = args.profile
+        self.loop_end = loop_end
+
+    def get_url(self):
+        with open(self.configPath) as f:
+            return yaml.load(f)['url']
+
+    def get_urls(self):
+        oldUrl = None
+        while True:
+            try:
+                url = self.get_url()
+            except:
+                logging.exception("Failed to get url")
+            else:
+                if url != oldUrl:
+                    yield url
+                    oldUrl = url
+
+            self.loop_end()
+
+    def main(self):
+        for url in self.get_urls():
+            try:
+                Popen([self.browser, "--profile", self.profilePath, url])
+            except:
+                logging.exception("Failed to set url to '%s'.", url)
+
+# Graceful exit on SIG_TERM -- ensure that we bring down the browser
+# and 'unclutter' too.
+def do_exit(*args):
+    exit()
+signal.signal(signal.SIGTERM, do_exit)
 
 # Disable screensaver
 
@@ -57,23 +98,25 @@ for command in xset_commands:
 
 logging.info("Hiding the mouse")
 try:
-    unclutter = subprocess.Popen(["unclutter"])
+    unclutter = Popen(["unclutter"])
 except Exception as e:
     logging.exception("Unclutter failed")
     raise
 
-oldUrl = None
-
-while True:
-    try:
-        with open(configPath) as f:
-            url = yaml.load(f)['url']
-            if url != oldUrl:
-                subprocess.Popen([browser, "--profile", profilePath, url])
-                oldUrl = url
-    except IOError as e:
-        logging.exception("Failed to set url.")
-        print(e)
-
+def loop_end():
     time.sleep(1)
-    assert unclutter.returncode is None, "Unclutter has closed!"
+    assert unclutter.poll() is None, "Unclutter has closed!"
+
+kiosk = Kiosk(args, loop_end)
+try:
+    kiosk.main()
+finally:
+    logging.info("Exiting")
+    logging.debug("Closing %d child processes.", len(_processes))
+    for proc in _processes:
+        try:
+            if proc.poll() is None:
+                proc.terminate()
+        except:
+            cmd = " ".join(proc.args)
+            logging.exception("Failed to terminate a child process ('%s')", cmd)
