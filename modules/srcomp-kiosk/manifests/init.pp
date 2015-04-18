@@ -9,6 +9,8 @@ class srcomp-kiosk {
   $user_ssh     = "${user_home}/.ssh"
   $url          = hiera('url')
 
+  include 'srcomp-kiosk::hostname'
+
   package { ["iceweasel"
             ,"unclutter"
             ,"python3-yaml"
