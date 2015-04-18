@@ -5,7 +5,7 @@ from __future__ import print_function
 import os.path
 
 FILE_NAME = 'pi_macs'
-NAME_TEMPLATE = 'pi-{page}-{qual}'
+NAME_TEMPLATE = 'pi-{page}-{qual}.local'
 PAGE_TEMPLATE = 'http://compbox-2015.local/{page}.html{query}'
 CONTENT_TEMPLATE = '''# Student Robotics Pi #{num}
 ---
