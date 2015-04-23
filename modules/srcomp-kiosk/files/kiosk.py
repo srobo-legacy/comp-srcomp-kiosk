@@ -119,4 +119,11 @@ finally:
                 proc.terminate()
         except:
             cmd = " ".join(proc.args)
-            logging.exception("Failed to terminate a child process ('%s')", cmd)
+            logging.exception("Failed to send terminate signal to a child process ('%s')", cmd)
+
+    for proc in _processes:
+        try:
+            proc.wait()
+        except:
+            cmd = " ".join(proc.args)
+            logging.exception("Failed to wait for a child process to end ('%s')", cmd)
