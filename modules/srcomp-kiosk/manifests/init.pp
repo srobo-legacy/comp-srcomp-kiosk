@@ -12,7 +12,7 @@ class srcomp-kiosk {
   include 'srcomp-kiosk::hostname'
 
   class { '::ntp':
-    servers => ['compbox-2015.local'],
+    servers => ['compbox-2015.sr'],
   }
 
   package { ["iceweasel"
