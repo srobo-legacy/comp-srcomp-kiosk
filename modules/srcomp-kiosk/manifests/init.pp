@@ -11,6 +11,10 @@ class srcomp-kiosk {
 
   include 'srcomp-kiosk::hostname'
 
+  class { '::ntp':
+    servers => ['compbox-2015.local'],
+  }
+
   package { ["iceweasel"
             ,"unclutter"
             ,"python3-yaml"
