@@ -19,27 +19,4 @@ and it will also automatically start on boot via a `.desktop` file.
 
 ## Deployment
 
-To deploy on a clean Raspberry Pi (one that has not had srcomp-kiosk installed
-on its SD card yet), enter the following at a terminal running on the Raspberry Pi:
-
-    # Install Git:
-    sudo apt-get install -y git
-    # Clone this repo:
-    git clone --recursive https://www.studentrobotics.org/gerrit/p/comp/srcomp-kiosk.git
-    # Run the bootstrap script:
-    cd srcomp-kiosk
-    sudo ./init.sh
-
-If `init.sh` prints the following message:
-
-    Puppet dir (/etc/puppet) already exists, remove it? [y/N]:
-
-then enter "y", which replaces whatever was at /etc/puppet (most likely a
-previous install of srcomp-kiosk) with the current Puppet config.
-
-If the Puppet config is later modified, the changes can be deployed by running the following commands:
-
-    # Fetch the changes:
-    git pull origin master
-    # Deploy the new config:
-    sudo ./deploy.sh
+See INSTALL.md for installation and deployment instructions.
