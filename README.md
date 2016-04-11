@@ -19,4 +19,4 @@ and it will also automatically start on boot via a `.desktop` file.
 
 ## Deployment
 
-See INSTALL.md for installation and deployment instructions.
+See [INSTALL.md](INSTALL.md) for installation and deployment instructions.
