@@ -9,9 +9,11 @@ class srcomp-kiosk::hostname ( $hostname = hiera('hostname') ) {
       before  => Exec['hostname.sh'],
     }
 
-    host { $::hostname:
-      ensure  => absent,
-      before  => Exec['hostname.sh'],
+    if $::fqdn != $::hostname {
+      host { $::hostname:
+        ensure  => absent,
+        before  => Exec['hostname.sh'],
+      }
     }
 
     host { 'custom fqdn':
