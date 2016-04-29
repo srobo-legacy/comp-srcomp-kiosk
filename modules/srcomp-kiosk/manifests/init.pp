@@ -23,6 +23,10 @@ class srcomp-kiosk {
     ensure => installed,
   }
 
+  package { ["xscreensaver"]:
+    ensure => absent,
+  }
+
   File {
     owner   => $user,
     group   => $user,
