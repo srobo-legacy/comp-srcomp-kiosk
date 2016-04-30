@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for pi in `cat pi-names`
+do
+	ssh $pi "$@"
+done

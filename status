@@ -1,0 +1,19 @@
+#!/usr/bin/env python
+
+from __future__ import print_function
+
+import subprocess
+
+with open('pi-names', 'r') as f:
+    names = f.readlines()
+
+for pi in names:
+    pi = pi.strip()
+    response = subprocess.call('ping -c 1 {0} > /dev/null 2> /dev/null'.format(pi),
+                               shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+    if response == 0:
+        status = 'up'
+    else:
+        status = 'down'
+
+    print(" {0:<17} is {1}".format(pi, status))
