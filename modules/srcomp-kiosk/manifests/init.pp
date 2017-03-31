@@ -54,6 +54,12 @@ class srcomp-kiosk {
     content => 'ps aux | grep --color -E "(unclutter|icew|python)"',
   }
 
+  file { "${user_home}/.bash_aliases":
+    ensure  => file,
+    mode    => '0644',
+    content => 'export DISPLAY=:0',
+  }
+
   # Easy logins
   file { $user_ssh:
     ensure  => directory,
