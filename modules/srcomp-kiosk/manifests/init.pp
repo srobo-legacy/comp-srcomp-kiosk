@@ -19,6 +19,7 @@ class srcomp-kiosk {
             ,"unclutter"
             ,"python3-yaml"
             ,"x11-xserver-utils"
+            ,"screen"
             ]:
     ensure => installed,
   }
