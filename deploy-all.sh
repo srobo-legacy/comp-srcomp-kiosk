@@ -1,4 +1,4 @@
-#!/bin/bash -xe
+#!/bin/bash
 
 if [ "$#" != 1 ]; then
   echo >&2 "Deploys srcomp-kiosk to hostnames given in filename (- for stdin)"
