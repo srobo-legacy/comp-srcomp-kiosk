@@ -142,4 +142,9 @@ class srcomp-kiosk {
     unless  => "${kiosk_runner} status",
     require => File[$kiosk_runner],
   }
+
+  host { 'compbox-2017':
+    ensure => present,
+    ip     => '192.168.8.230',
+  }
 }
