@@ -6,7 +6,7 @@ import os.path
 
 FILE_NAME = 'pi_macs'
 NAME_TEMPLATE = 'pi-{page}-{qual}.sr'
-PAGE_TEMPLATE = 'http://compbox-2017/{page}.html{query}'
+PAGE_TEMPLATE = 'http://%{{::compbox_hostname}}/{page}.html{query}'
 CONTENT_TEMPLATE = '''# Student Robotics Pi #{num}
 ---
 url: {url}

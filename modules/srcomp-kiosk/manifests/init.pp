@@ -9,10 +9,13 @@ class srcomp-kiosk {
   $user_ssh     = "${user_home}/.ssh"
   $url          = hiera('url')
 
+  $compbox_ip   = hiera('compbox_ip')
+  $compbox_hostname = hiera('compbox_hostname')
+
   include 'srcomp-kiosk::hostname'
 
   class { '::ntp':
-    servers => ['compbox-2017'],
+    servers => [$compbox_hostname],
   }
 
   package { ["iceweasel"
@@ -143,8 +146,8 @@ class srcomp-kiosk {
     require => File[$kiosk_runner],
   }
 
-  host { 'compbox-2017':
+  host { $compbox_hostname:
     ensure => present,
-    ip     => '192.168.8.230',
+    ip     => $compbox_ip,
   }
 }
