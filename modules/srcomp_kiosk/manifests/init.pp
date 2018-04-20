@@ -1,4 +1,4 @@
-class srcomp-kiosk {
+class srcomp_kiosk {
 
   $opt_kioskdir = '/opt/srcomp-kiosk'
   $etc_kioskdir = '/etc/srcomp-kiosk'
@@ -12,7 +12,7 @@ class srcomp-kiosk {
   $compbox_ip   = hiera('compbox_ip')
   $compbox_hostname = hiera('compbox_hostname')
 
-  include 'srcomp-kiosk::hostname'
+  include 'srcomp_kiosk::hostname'
 
   class { '::ntp':
     servers => [$compbox_hostname],
@@ -74,7 +74,7 @@ class srcomp-kiosk {
     ensure  => file,
     mode    => '0600',
     # TODO: Put in hiera?
-    source  => 'puppet:///modules/srcomp-kiosk/pi-authorized_keys',
+    source  => 'puppet:///modules/srcomp_kiosk/pi-authorized_keys',
     require => File[$user_ssh],
   }
 
@@ -93,7 +93,7 @@ class srcomp-kiosk {
   $kiosk_runner = '/usr/local/bin/srcomp-kiosk'
   file { "${autostart_dir}/kiosk.desktop":
     ensure  => file,
-    content => template('srcomp-kiosk/kiosk.desktop.erb'),
+    content => template('srcomp_kiosk/kiosk.desktop.erb'),
     require => File[$autostart_dir],
   }
 
@@ -112,7 +112,7 @@ class srcomp-kiosk {
   $log_dir = $kiosk_logdir
   file { $kiosk_runner:
     ensure  => file,
-    content => template('srcomp-kiosk/service.erb'),
+    content => template('srcomp_kiosk/service.erb'),
     mode    => '0755',
     require => [File[$kiosk_script],
                 File[$kiosk_logdir],
@@ -126,7 +126,7 @@ class srcomp-kiosk {
 
   file { $kiosk_script:
     ensure  => file,
-    source  => 'puppet:///modules/srcomp-kiosk/kiosk.py',
+    source  => 'puppet:///modules/srcomp_kiosk/kiosk.py',
     mode    => '0755',
     require => File[$opt_kioskdir],
   }
@@ -134,7 +134,7 @@ class srcomp-kiosk {
   file { "${opt_kioskdir}/firefox-profile":
     ensure  => directory,
     recurse => true,
-    source  => 'puppet:///modules/srcomp-kiosk/firefox-profile',
+    source  => 'puppet:///modules/srcomp_kiosk/firefox-profile',
     mode    => '0755',
     require => File[$opt_kioskdir],
   }

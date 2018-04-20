@@ -1,7 +1,7 @@
 # Set the hostname on the Pis so that they can easily be identified when
 # shelling in
 
-class srcomp-kiosk::hostname ( $hostname = hiera('hostname') ) {
+class srcomp_kiosk::hostname ( $hostname = hiera('hostname') ) {
 
   if $::fqdn != $hostname {
     host { $::fqdn:
