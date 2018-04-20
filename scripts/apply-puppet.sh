@@ -6,4 +6,4 @@ then
     exit 1
 fi
 
-exec sudo puppet apply /etc/puppet/manifests/main.pp "$@"
+exec sudo puppet apply /etc/puppet/manifests/main.pp --modulepath=/etc/puppet/modules "$@"
