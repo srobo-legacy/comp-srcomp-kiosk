@@ -1,0 +1,9 @@
+#!/bin/bash -e
+
+cd $(dirname $0)/..
+
+sudo apt-get install --yes puppet git
+
+git submodule update --init --recursive
+
+exec scripts/apply-puppet.sh
