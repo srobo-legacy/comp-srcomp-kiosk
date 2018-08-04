@@ -6,11 +6,11 @@ If the Raspberry Pi already have a desktop environment set up and it doesn't
 need to be re-imaged, then you can skip this section and jump straight to
 "SRComp Kiosk setup".
 
-SR's Raspberry Pis run the Raspbian distribution (a derivative of Debian).
-Two SD card images are available for download from the Raspberry Pi website:
-full Raspbian (includes a full desktop environment) and Raspbian Lite (no
-desktop). As of April 2016, the full Raspbian image is too large for our 4 GB
-SD cards, so we need to use the Raspbian Lite image.
+The kiosk runs on top of Raspbian Linux (a derivative of Debian). Two SD card
+images are available for download from the Raspberry Pi website: full Raspbian
+(includes a full desktop environment) and Raspbian Lite (no desktop). As of
+April 2016, the full Raspbian image is too large for 4 GB SD cards, so you may
+need to use the Raspbian Lite image.
 
 Download the [latest Raspbian Lite image][raspbianlite], and flash it to the SD
 card (see [this page][sd-setup] for a guide). You should then follow the
