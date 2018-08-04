@@ -17,16 +17,6 @@ card (see [this page][sd-setup] for a guide). You should then follow the
 [instructions][rpi-setup] on the Raspberry Pi website to power on and log in to
 the Raspberry Pi.
 
-The filesystem contained in the SD card image is less than 2 GB; we want to
-expand this filesystem to the full size of the SD card. We can easily do this
-using the `raspi-config` tool:
-
-    sudo raspi-config
-
-Select "Expand Filesystem", and reboot the Raspberry Pi once the process is
-complete. When it has finished rebooting, log in again to continue the setup
-procedure.
-
 It is a good idea to make sure all installed packages are up to date, so enter
 these commands to perform system updates:
 
