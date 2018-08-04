@@ -48,9 +48,9 @@ on its SD card yet), enter the following at a terminal running on the Raspberry 
     git clone --recursive https://www.studentrobotics.org/gerrit/p/comp/srcomp-kiosk.git
     # Run the bootstrap script:
     cd srcomp-kiosk
-    sudo ./init.sh
+    sudo ./scripts/install
 
-If `init.sh` prints the following message:
+If `./scripts/install` prints the following message:
 
     Puppet dir (/etc/puppet) already exists, remove it? [y/N]:
 
@@ -62,4 +62,4 @@ If the Puppet config is later modified, the changes can be deployed by running t
     # Fetch the changes:
     git pull origin master
     # Deploy the new config:
-    sudo ./deploy.sh
+    sudo ./scripts/update
