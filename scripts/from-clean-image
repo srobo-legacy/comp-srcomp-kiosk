@@ -26,7 +26,7 @@ kpartx -av $IMAGE
 TARGET=$(mktemp -d)
 
 # Wait for the loop to form
-sleep 0.1
+sleep 0.5
 
 mount /dev/mapper/loop0p2 $TARGET
 
