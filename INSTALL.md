@@ -39,6 +39,12 @@ it loads a desktop environment on startup.
 
 ## SRComp Kiosk setup
 
+### Bootstrap
+
+To get the repo onto a Raspbian image, you can use `./scripts/from-clean-image $IMAGE".
+Note that you'll still need to run the install script (as below) once the Pi has booted.
+(You'll probably still want to install git on the Pi anyway)
+
 To deploy on a clean Raspberry Pi (one that has not had srcomp-kiosk installed
 on its SD card yet), enter the following at a terminal running on the Raspberry Pi:
 
@@ -46,7 +52,8 @@ on its SD card yet), enter the following at a terminal running on the Raspberry 
     sudo apt-get install -y git
     # Clone this repo:
     git clone --recursive https://www.studentrobotics.org/gerrit/p/comp/srcomp-kiosk.git
-    # Run the bootstrap script:
+
+    # Run the install script:
     cd srcomp-kiosk
     sudo ./scripts/install
 
