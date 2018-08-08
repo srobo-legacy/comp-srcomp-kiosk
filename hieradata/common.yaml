@@ -2,5 +2,7 @@
 url: 'http://152.78.162.68:8080'
 hostname: raspberrypi.local
 
+timezone: Europe/London
+
 compbox_hostname: compbox-2017
 compbox_ip: '192.168.8.230'
