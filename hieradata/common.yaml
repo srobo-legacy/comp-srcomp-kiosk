@@ -4,5 +4,5 @@ hostname: raspberrypi.local
 
 timezone: Europe/London
 
-compbox_hostname: compbox-2017
+compbox_hostname: compbox-2019
 compbox_ip: '192.168.8.230'
