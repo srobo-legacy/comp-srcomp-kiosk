@@ -1,4 +1,4 @@
 # Student Robotics Pi 0
 ---
 url: http://%{hiera('compbox_hostname')}/outside.html
-hostname: pi-outside-0.sr
+hostname: pi-outside-0.srobo

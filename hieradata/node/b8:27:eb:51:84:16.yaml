@@ -1,4 +1,4 @@
 # Student Robotics Pi 1
 ---
-url: http://%{hiera('compbox_hostname')}/shepherding.html
-hostname: pi-shepherding-1.sr
+url: http://%{hiera('compbox_hostname')}/outside.html
+hostname: pi-outside-1.srobo

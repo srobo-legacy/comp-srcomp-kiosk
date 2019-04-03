@@ -1,4 +1,4 @@
 # Student Robotics Pi 7
 ---
-url: http://%{hiera('compbox_hostname')}/arena.html?B,0
-hostname: pi-arena-B0.sr
+url: http://%{hiera('compbox_hostname')}/outside.html
+hostname: pi-outside-7.srobo
