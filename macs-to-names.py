@@ -5,7 +5,7 @@ from __future__ import print_function
 import os.path
 
 FILE_NAME = 'pi_macs'
-NAME_TEMPLATE = 'pi-{page}-{qual}.sr'
+NAME_TEMPLATE = 'pi-{page}-{qual}.srobo'
 PAGE_TEMPLATE = 'http://%{{hiera(\'compbox_hostname\')}}/{page}.html{query}'
 CONTENT_TEMPLATE = '''# Student Robotics Pi {ident}
 ---
